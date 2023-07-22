@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Dimensions, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Colors, Separator, Display } from '../../../constants'
@@ -10,8 +10,7 @@ const heart = require('../../../../assets/Icon/heart.png');
 const { width, height } = Dimensions.get('screen');
 const cardWidth = width / 2.2;
 
-export default function AllProducts() {
-
+const AllProducts = () => {
     const navigation = useNavigation();
     const buyerId = firebase.auth().currentUser.uid;
     const [forYou, setForYou] = useState([]);
@@ -489,5 +488,7 @@ export default function AllProducts() {
         </View>
     )
 }
+
+export default memo(AllProducts)
 
 const styles = StyleSheet.create({})

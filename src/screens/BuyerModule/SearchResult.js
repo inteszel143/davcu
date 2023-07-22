@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Dimensions, Image, ActivityIndicator, Modal, TextInput } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Dimensions, Image, ActivityIndicator, Modal, TextInput, ScrollView } from 'react-native'
 
 import React, { useEffect, useState } from 'react';
 import { Colors, Separator, Status, Display } from '../../constants'
@@ -10,7 +10,7 @@ import Messaging from './BuyerConstant/Messaging';
 import ShoppingCart from './BuyerConstant/ShoppingCart';
 
 const { width, height } = Dimensions.get('screen');
-const cardWidth = width / 2.1;
+const cardWidth = width / 2.2;
 const heart = require('../../../assets/Icon/heart.png');
 
 export default function SearchResult({ navigation, route }) {
@@ -178,152 +178,284 @@ export default function SearchResult({ navigation, route }) {
 
     function renderFilterData() {
         return (
-            <View
-                style={{
-                    alignSelf: 'center',
-                }}
-            >
-                <FlatList
-                    numColumns={2}
-                    data={products}
-                    renderItem={({ item }) => (
-                        <View
-                            style={{
-                                marginTop: 5,
-                            }}
-                        >
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: Colors.DEFAULT_WHITE,
-                                    width: cardWidth,
-                                    margin: '0.5%',
-                                    borderTopLeftRadius: 8,
-                                    borderTopRightRadius: 8,
-                                }}
-                                onPress={() => navigation.navigate('ProductDetails', {
-                                    productId: item.key,
-                                    sellerId: item.sellerUid,
-                                })}
-                            >
-
-                                {/* PRODUCT IMAGE */}
-                                <Image
-                                    source={{ uri: item.imageUrl[0] }}
-                                    resizeMode='center'
-                                    style={{
-                                        width: cardWidth,
-                                        height: 135,
-                                        // borderTopLeftRadius: 2,
-                                        // borderTopRightRadius: 2,
-                                    }}
-                                />
-
-
-                                {/* CONTENT */}
-                                <View
-                                    style={{
-                                        paddingHorizontal: 8,
-                                        marginTop: 8,
-                                    }}
-                                >
-                                    {/* NAME */}
-                                    <Text
-                                        numberOfLines={2}
+            <View>
+                <View
+                    style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                        alignItems: 'flex-start',
+                        justifyContent: 'center',
+                    }}
+                >
+                    {
+                        products.map((item, i) => {
+                            if (item.productName.toLowerCase().includes(filterKeywords.toLowerCase())) {
+                                return (
+                                    <TouchableOpacity
+                                        key={i}
                                         style={{
-                                            fontFamily: 'PoppinsMedium',
-                                            fontSize: RFPercentage(1.8),
+                                            backgroundColor: Colors.DEFAULT_WHITE,
+                                            width: cardWidth,
+                                            margin: '1.2%',
+                                            borderTopLeftRadius: 8,
+                                            borderTopRightRadius: 8,
                                         }}
-                                    >{item.productName}</Text>
-
-                                    <Separator height={3} />
-                                    {/* PRICE */}
-                                    <Text
-                                        style={{
-                                            fontFamily: 'PoppinsSemiBold',
-                                            fontSize: RFPercentage(2),
-                                            // color: Colors.DEFAULT_ORANGE,
-                                        }}
+                                        onPress={() => navigation.replace('ProductDetails', {
+                                            productId: item.key,
+                                            sellerId: item.sellerUid,
+                                        })}
                                     >
-                                        ₱{numeral(item.productPrice).format('0,0.00')}
-                                    </Text>
-                                    <Separator height={3} />
-                                    {/* RATE AND SOLD */}
-                                    <View
-                                        style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                        }}
-                                    >
+                                        {/* IMAGES */}
+
+                                        <Image
+                                            source={{ uri: item.imageUrl[0] }}
+                                            resizeMode='center'
+                                            style={{
+                                                width: cardWidth,
+                                                height: 135,
+                                                // borderTopLeftRadius: 2,
+                                                // borderTopRightRadius: 2,
+                                            }}
+                                        />
+
+                                        {/* CONTENT */}
                                         <View
                                             style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
+                                                paddingHorizontal: 8,
+                                                marginTop: 8,
                                             }}
                                         >
-                                            {
-                                                item.rating === 0 ? <></>
-                                                    :
-                                                    <View
-                                                        style={{
-                                                            flexDirection: 'row',
-                                                            alignItems: 'center',
-                                                        }}
-                                                    >
-                                                        <FontAwesome name='star' size={12} color={Colors.DEFAULT_STAR} style={{ marginBottom: 2 }} />
-                                                        <Text
-                                                            style={{
-                                                                fontFamily: 'PoppinsMedium',
-                                                                fontSize: RFPercentage(1.6),
-                                                                marginLeft: 3,
-                                                                color: Colors.DARK_SEVEN,
-                                                            }}
-                                                        >{item.rating}</Text>
-                                                    </View>
-                                            }
-                                            {
-                                                item.rating === 0 ? <></>
-                                                    :
-                                                    <View
-                                                        style={{
-                                                            width: 1,
-                                                            height: 10,
-                                                            backgroundColor: Colors.LIGHT_GREY2,
-                                                            marginHorizontal: 5,
-                                                        }}
-                                                    ></View>
-                                            }
-
-
+                                            {/* NAME */}
                                             <Text
+                                                numberOfLines={2}
                                                 style={{
                                                     fontFamily: 'PoppinsMedium',
-                                                    fontSize: RFPercentage(1.5),
-                                                    color: Colors.DARK_SEVEN,
+                                                    fontSize: RFPercentage(1.8),
                                                 }}
-                                            >{item.totalSold} sold</Text>
+                                            >{item.productName}</Text>
+
+                                            <Separator height={3} />
+                                            {/* PRICE */}
+                                            <Text
+                                                style={{
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: RFPercentage(2),
+                                                    // color: Colors.DEFAULT_ORANGE,
+                                                }}
+                                            >
+                                                ₱{numeral(item.productPrice).format('0,0.00')}
+                                            </Text>
+                                            <Separator height={3} />
+                                            {/* RATE AND SOLD */}
+                                            <View
+                                                style={{
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                <View
+                                                    style={{
+                                                        flexDirection: 'row',
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    {
+                                                        item.rating === 0 ? <></>
+                                                            :
+                                                            <View
+                                                                style={{
+                                                                    flexDirection: 'row',
+                                                                    alignItems: 'center',
+                                                                }}
+                                                            >
+                                                                <FontAwesome name='star' size={12} color={Colors.DEFAULT_STAR} style={{ marginBottom: 2 }} />
+                                                                <Text
+                                                                    style={{
+                                                                        fontFamily: 'PoppinsMedium',
+                                                                        fontSize: RFPercentage(1.6),
+                                                                        marginLeft: 3,
+                                                                        color: Colors.DARK_SEVEN,
+                                                                    }}
+                                                                >{item.rating}</Text>
+                                                            </View>
+                                                    }
+                                                    {
+                                                        item.rating === 0 ? <></>
+                                                            :
+                                                            <View
+                                                                style={{
+                                                                    width: 1,
+                                                                    height: 10,
+                                                                    backgroundColor: Colors.LIGHT_GREY2,
+                                                                    marginHorizontal: 5,
+                                                                }}
+                                                            ></View>
+                                                    }
+
+
+                                                    <Text
+                                                        style={{
+                                                            fontFamily: 'PoppinsMedium',
+                                                            fontSize: RFPercentage(1.5),
+                                                            color: Colors.DARK_SEVEN,
+                                                        }}
+                                                    >{item.totalSold} sold</Text>
+                                                </View>
+                                            </View>
+                                            <Separator height={6} />
+
+
                                         </View>
-                                    </View>
-                                    <Separator height={6} />
+
+                                    </TouchableOpacity>
+
+                                )
+                            } else if (item.productCategory.toLowerCase().includes(filterKeywords.toLowerCase())) {
+                                return (
+                                    <TouchableOpacity
+                                        key={i}
+                                        style={{
+                                            backgroundColor: Colors.DEFAULT_WHITE,
+                                            width: cardWidth,
+                                            margin: '1.2%',
+                                            borderTopLeftRadius: 8,
+                                            borderTopRightRadius: 8,
+                                        }}
+                                        onPress={() => navigation.replace('ProductDetails', {
+                                            productId: item.key,
+                                            sellerId: item.sellerUid,
+                                        })}
+                                    >
+                                        {/* IMAGES */}
+
+                                        <Image
+                                            source={{ uri: item.imageUrl[0] }}
+                                            resizeMode='center'
+                                            style={{
+                                                width: cardWidth,
+                                                height: 135,
+                                                // borderTopLeftRadius: 2,
+                                                // borderTopRightRadius: 2,
+                                            }}
+                                        />
+                                        {/* NAME */}
+                                        <Text
+                                            numberOfLines={2}
+                                            style={{
+                                                fontFamily: 'PoppinsMedium',
+                                                fontSize: RFPercentage(1.8),
+                                            }}
+                                        >{item.productName}</Text>
+
+                                        {/* CONTENT */}
+                                        <View
+                                            style={{
+                                                paddingHorizontal: 8,
+                                                marginTop: 8,
+                                            }}
+                                        >
 
 
-                                </View>
+                                            <Separator height={3} />
+                                            {/* PRICE */}
+                                            <Text
+                                                style={{
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: RFPercentage(2),
+                                                    // color: Colors.DEFAULT_ORANGE,
+                                                }}
+                                            >
+                                                ₱{numeral(item.productPrice).format('0,0.00')}
+                                            </Text>
+                                            <Separator height={3} />
+                                            {/* RATE AND SOLD */}
+                                            <View
+                                                style={{
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                <View
+                                                    style={{
+                                                        flexDirection: 'row',
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    {
+                                                        item.rating === 0 ? <></>
+                                                            :
+                                                            <View
+                                                                style={{
+                                                                    flexDirection: 'row',
+                                                                    alignItems: 'center',
+                                                                }}
+                                                            >
+                                                                <FontAwesome name='star' size={12} color={Colors.DEFAULT_STAR} style={{ marginBottom: 2 }} />
+                                                                <Text
+                                                                    style={{
+                                                                        fontFamily: 'PoppinsMedium',
+                                                                        fontSize: RFPercentage(1.6),
+                                                                        marginLeft: 3,
+                                                                        color: Colors.DARK_SEVEN,
+                                                                    }}
+                                                                >{item.rating}</Text>
+                                                            </View>
+                                                    }
+                                                    {
+                                                        item.rating === 0 ? <></>
+                                                            :
+                                                            <View
+                                                                style={{
+                                                                    width: 1,
+                                                                    height: 10,
+                                                                    backgroundColor: Colors.LIGHT_GREY2,
+                                                                    marginHorizontal: 5,
+                                                                }}
+                                                            ></View>
+                                                    }
 
 
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                />
+                                                    <Text
+                                                        style={{
+                                                            fontFamily: 'PoppinsMedium',
+                                                            fontSize: RFPercentage(1.5),
+                                                            color: Colors.DARK_SEVEN,
+                                                        }}
+                                                    >{item.totalSold} sold</Text>
+                                                </View>
+                                            </View>
+                                            <Separator height={6} />
 
+
+                                        </View>
+
+                                    </TouchableOpacity>
+
+                                )
+                            }
+                        }
+                        )
+                    }
+
+                </View>
             </View>
         )
-    }
+    };
+
+
+
 
     return (
         <View style={styles.container} >
             <Status />
             <Separator height={27} />
             {renderTop()}
-            {renderFilterData()}
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                {renderFilterData()}
+            </ScrollView>
         </View>
     )
 }

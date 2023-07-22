@@ -598,6 +598,7 @@ export default function RiderRegister({ navigation }) {
                     }}
                     disabled={showButton}
                     onPress={registerRider}
+
                 >
                     <Text
                         style={{

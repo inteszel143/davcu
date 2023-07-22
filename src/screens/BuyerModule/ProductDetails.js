@@ -54,7 +54,7 @@ export default function ProductDetails({ navigation, route }) {
             .doc(productId)
             .get()
             .then(documentSnapshot => {
-                console.log('Hello world', documentSnapshot.exists);
+          
                 if (documentSnapshot.exists) {
                     setProductData(documentSnapshot.data());
                     setLoading(false);
@@ -172,7 +172,7 @@ export default function ProductDetails({ navigation, route }) {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const onFucking = useCallback((productData, index) => {
 

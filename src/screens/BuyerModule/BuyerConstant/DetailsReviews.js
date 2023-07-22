@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Dimensions, Image, Modal, ActivityIndicator } from 'react-native'
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import { Colors, Separator, Status, Display } from '../../../constants'
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { MaterialCommunityIcons, EvilIcons, Ionicons, AntDesign, MaterialIcons, Feather, FontAwesome } from 'react-native-vector-icons';
@@ -11,8 +11,7 @@ import { firebase } from '../../../../config';
 
 const heart = require('../../../../assets/Icon/heart.png');
 const profile = require('../../../../assets/images/profilepic.png');
-
-export default function DetailsReviews({ productId }) {
+const DetailsReviews = ({ productId }) => {
     const [productData, setProductData] = useState("");
     const [modalVisible, setModalVisible] = useState(true);
     const [comments, setComment] = useState([]);
@@ -28,7 +27,6 @@ export default function DetailsReviews({ productId }) {
             .doc(productId)
             .get()
             .then(documentSnapshot => {
-                console.log('Hello world', documentSnapshot.exists);
                 if (documentSnapshot.exists) {
                     setProductData(documentSnapshot.data());
                 }
@@ -303,6 +301,8 @@ export default function DetailsReviews({ productId }) {
         </View>
     )
 }
+
+export default memo(DetailsReviews)
 
 const styles = StyleSheet.create({
     container: {

@@ -28,7 +28,7 @@ export default function RiderHome({ navigation }) {
     const [riderData, setRideData] = useState('');
     const [loading, setLoading] = useState(true);
     const [total, setTotal] = useState(0);
-    
+
     const [loadingButton, setLoadingButton] = useState(false);
     const [timeTime, setTimeTime] = useState(new Date());
 
@@ -46,7 +46,6 @@ export default function RiderHome({ navigation }) {
 
     const currentData = moment(new Date()).format('LL');
 
- 
 
     // GET TOTAL DELIVERED
     useEffect(() => {
@@ -214,13 +213,14 @@ export default function RiderHome({ navigation }) {
     function renderNewHeader() {
         return (
             <View>
-                <Separator height={27} />
+                {/* <Separator height={27} /> */}
                 <View
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         paddingHorizontal: 20,
+                        paddingTop: 40,
                         paddingVertical: 18,
                         backgroundColor: Colors.DEFAULT_WHITE,
                     }}
@@ -659,7 +659,7 @@ export default function RiderHome({ navigation }) {
             </View>
         )
     };
- 
+
 
 
 

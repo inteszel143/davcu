@@ -18,16 +18,12 @@ const LATITUDE_DELTA = 0.0012;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default function SellerStoreLocation({ navigation }) {
-
-
     // TOOLS
     const [modalVisible, setModalVisible] = useState(false);
     const [showButton, setShowButton] = useState(true);
 
     const [Latitude, setLatitude] = useState(0);
     const [Longitude, setLongitude] = useState(0);
-
-
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [userLocation, setUserLocation] = useState(null);

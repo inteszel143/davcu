@@ -34,7 +34,7 @@ import BuyerSetupLocation from "./BuyerSetupLocation";
 import BuyerAddName from "./BuyerAddName";
 import BuyerAddEmail from "./BuyerAddEmail";
 import BuyerAddLocation from "./BuyerAddLocation";
-
+import FilterRecommend from "./FilterRecommend";
 
 import TestScreen from "./TestScreen";
 
@@ -78,6 +78,8 @@ export {
     BuyerAddName,
     BuyerAddEmail,
     BuyerAddLocation,
+    FilterRecommend,
+    
 
     TestScreen,
     GCashPayment,

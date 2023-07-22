@@ -409,7 +409,7 @@ export default function BuyerLogin({ navigation }) {
                 </TouchableOpacity>
 
 
-                {/* <View
+                <View
                     style={{
                         marginTop: 20,
                         alignItems: 'center',
@@ -422,7 +422,7 @@ export default function BuyerLogin({ navigation }) {
                             color: Colors.INACTIVE_GREY,
                         }}
                     >Or sign in with</Text>
-                </View> */}
+                </View>
 
 
                 {/* OTHER BUTTON */}
@@ -434,7 +434,7 @@ export default function BuyerLogin({ navigation }) {
                     }}
                 >
 
-                    {/* <TouchableOpacity
+                    <TouchableOpacity
                         style={{
                             width: Display.setWidth(88),
                             height: Display.setHeight(6),
@@ -473,8 +473,6 @@ export default function BuyerLogin({ navigation }) {
 
                         </View>
                     </TouchableOpacity>
-
-
 
                     <TouchableOpacity
                         style={{
@@ -516,10 +514,10 @@ export default function BuyerLogin({ navigation }) {
 
                         </View>
                     </TouchableOpacity>
- */}
+
                 </View>
 
-                {/* <Separator height={40} /> */}
+                <Separator height={40} />
                 {/* DONT HAVE AN ACCOUNT */}
                 <View
                     style={{

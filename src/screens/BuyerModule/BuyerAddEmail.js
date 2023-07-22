@@ -38,7 +38,7 @@ export default function BuyerAddEmail({ navigation, route }) {
 
 
     useEffect(() => {
-        const isDisabled = !email || !email.match(/\S+@\S+\.\S+/) || !password || password.length != 8 || !confirmPassword || password != confirmPassword;
+        const isDisabled = !email || !email.match(/\S+@\S+\.\S+/) || !password || !confirmPassword || password != confirmPassword;
         setShowButton(isDisabled);
     }, [email, password, confirmPassword]);
 

@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Modal } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, ScrollView, TouchableOpacity, View, ActivityIndicator, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Colors, Display, Separator, General } from '../../../constants'
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -574,14 +574,21 @@ export default function ProfileScreen({ navigation }) {
       {MessageAlert()}
       <Separator height={27} />
       {renderTop()}
-      {renderImage()}
-      {renderMyOrdersButton()}
-      {renderShippingAddress()}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: 35,
+        }}
+      >
+        {renderImage()}
+        {renderMyOrdersButton()}
+        {renderShippingAddress()}
 
-      {renderMember()}
-      {renderLanguage()}
-      {helpCenter()}
-      {renderLogout()}
+        {renderMember()}
+        {renderLanguage()}
+        {helpCenter()}
+        {renderLogout()}
+      </ScrollView>
     </View>
   )
 }

@@ -11,7 +11,7 @@ import {
     BuyerShoppingBag, OrderSummary, ShippingAddress, BuyerEditLocation, BuyerUpdateAddress, SearchResult,
     ChatScreen, BuyerChat, ChatScreenMessage, EditProfile, PaypalPayment, PaypalReceipt, GCashPayment, BuyerCODSuccess,
     BuyerMyOrders, BuyerOrderDetails, BuyerOrderStatus, VisitShop, BuyerWriteReview, BuyerReviews, BuyerSetupLocation,
-    TestScreen, BuyerAddName, BuyerAddEmail, BuyerAddLocation
+    TestScreen, BuyerAddName, BuyerAddEmail, BuyerAddLocation, FilterRecommend
 } from '../screens/BuyerModule';
 
 import {
@@ -73,6 +73,7 @@ export default function index() {
                 <Stack.Screen name="BuyerAddName" component={BuyerAddName} />
                 <Stack.Screen name="BuyerAddEmail" component={BuyerAddEmail} />
                 <Stack.Screen name="BuyerAddLocation" component={BuyerAddLocation} />
+                <Stack.Screen name="FilterRecommend" component={FilterRecommend} />
 
 
 

@@ -10,10 +10,7 @@
         "resourceClass": "m1-medium"
       }
     },
-    
-    // "preview": {
-    //   "distribution": "internal"
-    // },
+
     "preview": {
       "distribution": "internal",
       "android": {

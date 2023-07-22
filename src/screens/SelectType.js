@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useFonts } from 'expo-font';
 import { Colors, Status, Display, Separator } from '../constants';
@@ -186,6 +186,7 @@ export default function SelectType({ navigation }) {
             <View
                 style={{
                     marginTop: 15,
+                    paddingBottom: 15,
                 }}
             >
                 <TouchableOpacity
@@ -284,12 +285,16 @@ export default function SelectType({ navigation }) {
                     Select an account type
                 </Text>
             </View>
-            <Separator height={10} />
-            {/* BUYER */}
-            {renderBuyer()}
-            {renderSeller()}
-            {renderDelivery()}
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                <Separator height={10} />
+                {/* BUYER */}
 
+                {renderBuyer()}
+                {renderSeller()}
+                {renderDelivery()}
+            </ScrollView>
         </SafeAreaView>
     )
 }

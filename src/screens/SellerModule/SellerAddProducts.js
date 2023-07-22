@@ -213,7 +213,7 @@ export default function SellerAddProducts({ navigation }) {
                             }}
                         >
                             <Image
-                                source={require('../../../assets/Icon/check.png')}
+                                source={require('../../../assets/Icon/wright.png')}
                                 resizeMode='contain'
                                 style={{
                                     width: 25,

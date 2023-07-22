@@ -69,8 +69,10 @@ export default function RecommededNew() {
                         color: Colors.DARK_TWO,
                     }}
                 >Recommendation</Text>
-
-                <TouchableOpacity>
+                {/* //FilterRecommend */}
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('FilterRecommend')}
+                >
                     <MaterialCommunityIcons name="view-grid-outline" size={20} color={Colors.INACTIVE_GREY} />
                 </TouchableOpacity>
             </View>

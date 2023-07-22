@@ -47,9 +47,10 @@ export default function SellerRegister({ navigation }) {
     React.useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                navigation.navigate('SellerPhoneAuth', {
-                    phoneNumber: phoneNumber,
-                });
+                // navigation.navigate('SellerPhoneAuth', {
+                //     phoneNumber: phoneNumber,
+                // });
+                navigation.navigate("SellerStoreLocation");
             }
         });
         return unsubscribe;

@@ -209,19 +209,22 @@ export default function SellerInvoice({ navigation, route }) {
 
             <Status />
             {MessageAlert()}
-            <Separator height={40} />
-            {/* {renderHeader()} */}
-            <View
-                ref={viewToSnapshotRef}
-                style={{
-                    borderWidth: 0.5,
-                    paddingVertical: 10,
-                    paddingHorizontal: 25,
-                    marginHorizontal: 10,
-                    backgroundColor: Colors.DEFAULT_WHITE,
-                }}
-            >
-                {/* <Text
+
+            <ScrollView>
+
+                <Separator height={40} />
+                {/* {renderHeader()} */}
+                <View
+                    ref={viewToSnapshotRef}
+                    style={{
+                        borderWidth: 0.5,
+                        paddingVertical: 10,
+                        paddingHorizontal: 25,
+                        marginHorizontal: 10,
+                        backgroundColor: Colors.DEFAULT_WHITE,
+                    }}
+                >
+                    {/* <Text
                     style={{
                         textAlign: 'center',
                         fontFamily: 'PoppinsSemiBold',
@@ -232,271 +235,271 @@ export default function SellerInvoice({ navigation, route }) {
                 <View style={{ height: 0.5, backgroundColor: Colors.DEFAULT_BLACK, marginVertical: 15, marginHorizontal: 40, }} /> */}
 
 
-                <Text
-                    style={{
-                        textAlign: 'left',
-                        fontFamily: 'PoppinsSemiBold',
-                        fontSize: RFPercentage(2),
-                        textAlign: 'center',
-                    }}
-                >Order #: {orderDetails.orderID}</Text>
-                <Separator height={5} />
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsMedium',
-                        fontSize: RFPercentage(1.9),
-                        textAlign: 'center',
-                    }}
-                >{sellerDetail.shopName}</Text>
-
-                <Separator height={5} />
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsRegular',
-                        fontSize: RFPercentage(1.9),
-                        textAlign: 'center',
-                    }}
-                >{sellerDetail.storeLocation}
-                </Text>
-
-                <Separator height={5} />
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsMedium',
-                        fontSize: RFPercentage(1.8),
-                        textAlign: 'center',
-                    }}
-                > {moment(new Date()).format('LLL')}</Text>
-
-
-
-
-                <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 10, marginHorizontal: 20, }} />
-
-                <Text
-                    style={{
-                        textAlign: 'center',
-                        fontFamily: 'PoppinsMedium',
-                        fontSize: RFPercentage(2.2),
-                    }}
-                >Customer:</Text>
-                <Separator height={5} />
-
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsMedium',
-                        fontSize: RFPercentage(2.2),
-                        textAlign: 'center',
-                    }}
-                >{orderDetails.fullName}</Text>
-
-                {/* method */}
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsSemiBold',
-                        fontSize: RFPercentage(2),
-                        textAlign: 'center',
-                    }}
-                >
-                    {orderDetails.paymentMethod}
-                </Text>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
-
-
-                </View>
-                <Separator height={5} />
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsRegular',
-                        fontSize: RFPercentage(1.9),
-                        textAlign: 'center',
-                    }}
-                >
-                    {orderDetails.shippingAddress}
-                </Text>
-
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsMedium',
-                        fontSize: RFPercentage(2),
-                        textAlign: 'center',
-                    }}
-                >{orderDetails.phoneNumber}</Text>
-                <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 20, }} />
-
-
-                {/* ITEMS */}
-                <View
-                    style={{
-                        flexDirection: 'row',
-                    }}
-                >
                     <Text
                         style={{
-                            width: '20%',
+                            textAlign: 'left',
+                            fontFamily: 'PoppinsSemiBold',
+                            fontSize: RFPercentage(2),
+                            textAlign: 'center',
+                        }}
+                    >Order #: {orderDetails.orderID}</Text>
+                    <Separator height={5} />
+                    <Text
+                        style={{
+                            fontFamily: 'PoppinsMedium',
+                            fontSize: RFPercentage(1.9),
+                            textAlign: 'center',
+                        }}
+                    >{sellerDetail.shopName}</Text>
+
+                    <Separator height={5} />
+                    <Text
+                        style={{
+                            fontFamily: 'PoppinsRegular',
+                            fontSize: RFPercentage(1.9),
+                            textAlign: 'center',
+                        }}
+                    >{sellerDetail.storeLocation}
+                    </Text>
+
+                    <Separator height={5} />
+                    <Text
+                        style={{
                             fontFamily: 'PoppinsMedium',
                             fontSize: RFPercentage(1.8),
                             textAlign: 'center',
                         }}
-                    >{orderDetails.quantity}x</Text>
+                    > {moment(new Date()).format('LLL')}</Text>
+
+
+
+
+                    <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 10, marginHorizontal: 20, }} />
+
                     <Text
                         style={{
-                            width: '60%',
-                            fontFamily: 'PoppinsMedium',
-                            fontSize: RFPercentage(1.8),
                             textAlign: 'center',
+                            fontFamily: 'PoppinsMedium',
+                            fontSize: RFPercentage(2.2),
                         }}
-                    >{orderDetails.productName}</Text>
+                    >Customer:</Text>
+                    <Separator height={5} />
+
                     <Text
                         style={{
-                            width: '20%',
                             fontFamily: 'PoppinsMedium',
-                            fontSize: RFPercentage(1.8),
+                            fontSize: RFPercentage(2.2),
                             textAlign: 'center',
                         }}
-                    >₱{numeral(orderDetails.price).format('0,0.00')}</Text>
+                    >{orderDetails.fullName}</Text>
 
-                </View>
-                <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 20, }} />
+                    {/* method */}
+                    <Text
+                        style={{
+                            fontFamily: 'PoppinsSemiBold',
+                            fontSize: RFPercentage(2),
+                            textAlign: 'center',
+                        }}
+                    >
+                        {orderDetails.paymentMethod}
+                    </Text>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
+                    >
 
 
-                {/* SUMMARY */}
-                <View>
+                    </View>
+                    <Separator height={5} />
+                    <Text
+                        style={{
+                            fontFamily: 'PoppinsRegular',
+                            fontSize: RFPercentage(1.9),
+                            textAlign: 'center',
+                        }}
+                    >
+                        {orderDetails.shippingAddress}
+                    </Text>
+
+                    <Text
+                        style={{
+                            fontFamily: 'PoppinsMedium',
+                            fontSize: RFPercentage(2),
+                            textAlign: 'center',
+                        }}
+                    >{orderDetails.phoneNumber}</Text>
+                    <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 20, }} />
+
+
+                    {/* ITEMS */}
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <Text
+                            style={{
+                                width: '20%',
+                                fontFamily: 'PoppinsMedium',
+                                fontSize: RFPercentage(1.8),
+                                textAlign: 'center',
+                            }}
+                        >{orderDetails.quantity}x</Text>
+                        <Text
+                            style={{
+                                width: '60%',
+                                fontFamily: 'PoppinsMedium',
+                                fontSize: RFPercentage(1.8),
+                                textAlign: 'center',
+                            }}
+                        >{orderDetails.productName}</Text>
+                        <Text
+                            style={{
+                                width: '20%',
+                                fontFamily: 'PoppinsMedium',
+                                fontSize: RFPercentage(1.8),
+                                textAlign: 'center',
+                            }}
+                        >₱{numeral(orderDetails.price).format('0,0.00')}</Text>
+
+                    </View>
+                    <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 20, }} />
+
+
+                    {/* SUMMARY */}
+                    <View>
+
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <View>
+                                <Text
+                                    style={{
+                                        fontFamily: 'PoppinsMedium',
+                                        fontSize: RFPercentage(1.8),
+                                        textAlign: 'left',
+                                    }}
+                                >Subtotal: </Text>
+                                <Text
+                                    style={{
+                                        fontFamily: 'PoppinsMedium',
+                                        fontSize: RFPercentage(1.8),
+                                        textAlign: 'left',
+                                        marginTop: 5,
+                                    }}
+                                >Delivery fee: </Text>
+                                <Text
+                                    style={{
+                                        fontFamily: 'PoppinsSemiBold',
+                                        fontSize: RFPercentage(1.8),
+                                        textAlign: 'left',
+                                        marginTop: 5,
+                                    }}
+                                >Total: </Text>
+                            </View>
+
+                            <View>
+                                <Text
+                                    style={{
+                                        fontFamily: 'PoppinsMedium',
+                                        fontSize: RFPercentage(1.8),
+                                        textAlign: 'right',
+                                    }}
+                                >PHP {numeral(orderDetails.price).format('0,0.00')}</Text>
+                                <Text
+                                    style={{
+                                        fontFamily: 'PoppinsMedium',
+                                        fontSize: RFPercentage(1.8),
+                                        textAlign: 'right',
+                                        marginTop: 5,
+                                    }}
+                                >PHP {numeral(orderDetails.deliveryFee).format('0,0.00')}</Text>
+                                <Text
+                                    style={{
+                                        fontFamily: 'PoppinsSemiBold',
+                                        fontSize: RFPercentage(1.8),
+                                        textAlign: 'right',
+                                        marginTop: 5,
+                                    }}
+                                >PHP {numeral(parseFloat(orderDetails.price) + parseFloat(orderDetails.deliveryFee)).format('0,0.00')}</Text>
+                            </View>
+
+                        </View>
+
+                    </View>
+                    <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 20, }} />
+
+                    {/* QR CODE */}
 
                     <View
                         style={{
                             flexDirection: 'row',
+                            alignItems: 'center',
                             justifyContent: 'space-between',
                         }}
                     >
-                        <View>
+                        <QRCode
+                            content={'https://davcuapp.com/' + orderDetails.productUid}
+                            codeStyle='sharp'
+                            outerEyeStyle='square'
+                            innerEyeStyle='square'
+                            size={120}
+                        />
+                        <View
+                            style={{
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginLeft: 10,
+                            }}
+                        >
                             <Text
                                 style={{
-                                    fontFamily: 'PoppinsMedium',
-                                    fontSize: RFPercentage(1.8),
-                                    textAlign: 'left',
+                                    fontFamily: 'PoppinsRegular',
+                                    fontSize: RFPercentage(1.9),
                                 }}
-                            >Subtotal: </Text>
-                            <Text
-                                style={{
-                                    fontFamily: 'PoppinsMedium',
-                                    fontSize: RFPercentage(1.8),
-                                    textAlign: 'left',
-                                    marginTop: 5,
-                                }}
-                            >Delivery fee: </Text>
+                            >Product QTY:</Text>
                             <Text
                                 style={{
                                     fontFamily: 'PoppinsSemiBold',
-                                    fontSize: RFPercentage(1.8),
-                                    textAlign: 'left',
-                                    marginTop: 5,
+                                    fontSize: RFPercentage(2),
                                 }}
-                            >Total: </Text>
-                        </View>
+                            >{orderDetails.quantity} items</Text>
 
-                        <View>
+                            <Separator height={20} />
                             <Text
                                 style={{
                                     fontFamily: 'PoppinsMedium',
-                                    fontSize: RFPercentage(1.8),
-                                    textAlign: 'right',
+                                    fontSize: RFPercentage(1.9),
                                 }}
-                            >PHP {numeral(orderDetails.price).format('0,0.00')}</Text>
-                            <Text
-                                style={{
-                                    fontFamily: 'PoppinsMedium',
-                                    fontSize: RFPercentage(1.8),
-                                    textAlign: 'right',
-                                    marginTop: 5,
-                                }}
-                            >PHP {numeral(orderDetails.deliveryFee).format('0,0.00')}</Text>
+                            >Amount:</Text>
                             <Text
                                 style={{
                                     fontFamily: 'PoppinsSemiBold',
-                                    fontSize: RFPercentage(1.8),
-                                    textAlign: 'right',
-                                    marginTop: 5,
+                                    fontSize: RFPercentage(2),
                                 }}
                             >PHP {numeral(parseFloat(orderDetails.price) + parseFloat(orderDetails.deliveryFee)).format('0,0.00')}</Text>
+
                         </View>
-
                     </View>
-
-                </View>
-                <View style={{ height: 1, backgroundColor: Colors.LIGHT_GREY2, marginVertical: 20, }} />
-
-                {/* QR CODE */}
-
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    <QRCode
-                        content={'https://davcuapp.com/' + orderDetails.productUid}
-                        codeStyle='sharp'
-                        outerEyeStyle='square'
-                        innerEyeStyle='square'
-                        size={120}
-                    />
-                    <View
+                    <Separator height={15} />
+                    <Text
                         style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginLeft: 10,
+                            fontFamily: 'PoppinsRegular',
+                            fontSize: RFPercentage(1.7),
+                            textAlign: 'justify',
                         }}
-                    >
-                        <Text
-                            style={{
-                                fontFamily: 'PoppinsRegular',
-                                fontSize: RFPercentage(1.9),
-                            }}
-                        >Product QTY:</Text>
-                        <Text
-                            style={{
-                                fontFamily: 'PoppinsSemiBold',
-                                fontSize: RFPercentage(2),
-                            }}
-                        >{orderDetails.quantity} items</Text>
-
-                        <Separator height={20} />
-                        <Text
-                            style={{
-                                fontFamily: 'PoppinsMedium',
-                                fontSize: RFPercentage(1.9),
-                            }}
-                        >Amount:</Text>
-                        <Text
-                            style={{
-                                fontFamily: 'PoppinsSemiBold',
-                                fontSize: RFPercentage(2),
-                            }}
-                        >PHP {numeral(parseFloat(orderDetails.price) + parseFloat(orderDetails.deliveryFee)).format('0,0.00')}</Text>
-
-                    </View>
+                    >***To all  riders, please double check receipt before you leave***</Text>
                 </View>
-                <Separator height={15} />
-                <Text
-                    style={{
-                        fontFamily: 'PoppinsRegular',
-                        fontSize: RFPercentage(1.7),
-                        textAlign: 'justify',
-                    }}
-                >***To all  riders, please double check receipt before you leave***</Text>
-            </View>
 
-            <Separator height={20} />
-            {printMe()}
-
+                <Separator height={20} />
+                {printMe()}
+            </ScrollView>
         </View>
     )
 }

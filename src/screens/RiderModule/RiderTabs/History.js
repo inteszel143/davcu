@@ -454,14 +454,14 @@ export default function History({ navigation }) {
     return (
         <View style={styles.container} >
             <Status />
-            <Separator height={27} />
+            {/* <Separator height={27} /> */}
 
             <View
                 style={{
                     backgroundColor: Colors.DEFAULT_WHITE,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingTop: 20,
+                    paddingTop: 40,
                     paddingBottom: 5,
                 }}
             >

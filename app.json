@@ -2,13 +2,9 @@
   "expo": {
     "name": "Davcu",
     "slug": "DavCuApp",
-    // "privacy": "public",
-    // "description": "An application for HandyCraft products",
+ 
     "version": "1.0.0",
-    // "runtimeVersion": "1.0.0",
-    // "runtimeVersion": {
-    //     "policy": "sdkVersion"
-    // },
+  
     "plugins": [
       [
         "expo-barcode-scanner",
@@ -92,7 +88,8 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION"
       ],
-      "package": "com.paras23.DavCuApp"
+      "package": "com.paras23.DavCuApp",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

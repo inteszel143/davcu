@@ -323,14 +323,15 @@ export default function Deliveries({ navigation }) {
         <View style={styles.container} >
             <Status />
 
-            <Separator height={27} />
+            {/* <Separator height={27} /> */}
 
             <View
                 style={{
                     backgroundColor: Colors.DEFAULT_WHITE,
+                    paddingTop: 40,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingTop: 20,
+                    // paddingTop: 20,
                     paddingBottom: 5,
                 }}
             >
