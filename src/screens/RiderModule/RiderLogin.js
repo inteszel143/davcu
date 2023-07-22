@@ -310,7 +310,8 @@ export default function RiderLogin({ navigation }) {
                         borderRadius: 5,
                     }}
                     disabled={showButton}
-                    onPress={FullValidating}
+                    // onPress={FullValidating}
+                    onPress={() => setModalVisible(true)}
                 >
                     <View
                         style={{

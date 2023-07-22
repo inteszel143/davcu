@@ -597,7 +597,8 @@ export default function RiderRegister({ navigation }) {
                         borderRadius: 10,
                     }}
                     disabled={showButton}
-                    onPress={registerRider}
+                    // onPress={registerRider}
+                    onPress={() => setModalVisible(true)}
 
                 >
                     <Text

@@ -1,5 +1,5 @@
-import { FlatList, Image, StyleSheet, Text, ScrollView, TouchableOpacity, View, ActivityIndicator, Modal } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { FlatList, Image, StyleSheet, Text, ScrollView, TouchableOpacity, View, ActivityIndicator, Modal, Alert, TextInput } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
 import { Colors, Display, Separator, General } from '../../../constants'
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Badge } from 'react-native-paper'
@@ -11,11 +11,23 @@ const profileImg = require('../../../../assets/Icon/profileImage.jpg');
 const shoppingBag = require('../../../../assets/Icon/shoppingBags.png');
 export default function ProfileScreen({ navigation }) {
 
+
+
   const [modalVisible, setModalVisible] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [loadingModal, setLoadingModal] = useState(true);
   const [loading, setLoading] = useState(true);
   const [buyerData, setBuyerData] = useState("")
   const [note, setNote] = useState("")
+
+  const [passwordUser, setPasswordUser] = useState("");
+  const [showButton, setShowButton] = useState(true);
+
+
+  useEffect(() => {
+    const isDisabled = !passwordUser;
+    setShowButton(isDisabled);
+  }, [passwordUser]);
 
   useEffect(() => {
     const subscriber = firebase.firestore()
@@ -54,6 +66,45 @@ export default function ProfileScreen({ navigation }) {
       .catch(error => Alert.alert(error.message))
   };
 
+  const deleteAccountUser = async () => {
+    setDeleteModal(false);
+    try {
+      const user = firebase.auth().currentUser;
+
+      if (user) {
+        // Assuming `passwordUser` is a state variable holding the user's entered password
+        if (!passwordUser) {
+          Alert.alert('Delete Account', 'Please enter your password.');
+          return;
+        }
+
+        const credentials = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          passwordUser
+        );
+
+        try {
+          // Verify if the user's entered password is correct
+          await user.reauthenticateWithCredential(credentials);
+        } catch (verificationError) {
+          Alert.alert('Delete Account', 'Incorrect password. Please try again.');
+          return;
+        }
+
+        // Password is correct, proceed with account deletion
+        await user.delete();
+        Alert.alert('Successfully Delete Account', 'No user is currently signed in', [
+          {
+            text: 'Logout',
+            onPress: () => navigation.navigate('BuyerLogin')
+          },
+        ]);
+      }
+    } catch (error) {
+      console.error('Error deleting account:', error.message);
+    }
+  }
+
   if (loading) {
     return (
       <View
@@ -69,6 +120,7 @@ export default function ProfileScreen({ navigation }) {
       </View>
     );
   };
+
 
   function LoadingScreen() {
     return (
@@ -120,8 +172,7 @@ export default function ProfileScreen({ navigation }) {
         </View>
       </Modal>
     )
-  }
-
+  };
   function MessageAlert() {
     return (
       <Modal
@@ -193,6 +244,133 @@ export default function ProfileScreen({ navigation }) {
       </Modal>
     )
   };
+
+  function DeletionModal() {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteModal}
+        onRequestClose={() => {
+          setDeleteModal(!deleteModal);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={{
+            backgroundColor: Colors.DEFAULT_WHITE,
+            width: Display.setWidth(90),
+            borderRadius: 10,
+            shadowColor: "#000000",
+            shadowOffset: {
+              width: 0,
+              height: 3,
+            },
+            shadowOpacity: 0.17,
+            shadowRadius: 3.05,
+            elevation: 4
+          }}>
+
+            <Separator height={12} />
+
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                right: 10,
+                top: 10,
+              }}
+              onPress={() => setDeleteModal(!deleteModal)}
+            >
+              <Ionicons name="close" size={25} color={Colors.DARK_SEVEN} />
+            </TouchableOpacity>
+            <Separator height={10} />
+            <View
+              style={{
+                alignItems: 'center',
+                paddingHorizontal: 20,
+              }}
+            >
+              <Ionicons name="close-circle-outline" size={40} color={Colors.DEFAULT_RED} />
+
+              <Text
+                style={{
+                  fontWeight: '700',
+                  fontSize: 20,
+                  textAlign: 'center',
+                  paddingTop: 10,
+                }}
+              >
+                Are you sure want to delete your account ?
+              </Text>
+            </View>
+
+            {/* ENTER PASSOWORD */}
+            <View
+              style={{
+                marginTop: 10,
+                paddingVertical: 25,
+                paddingHorizontal: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '600',
+                }}
+              >To continue. please re-enter your {"\n"} password</Text>
+
+              <Separator height={10} />
+              <View
+                style={{
+                  alignSelf: 'center',
+                  width: '96%',
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  borderColor: Colors.DARK_SEVEN,
+                }}
+              >
+                <TextInput
+                  placeholder='Enter password'
+                  onChangeText={(passwordUser) => setPasswordUser(passwordUser)}
+                  secureTextEntry={true}
+                  style={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 10,
+                    fontSize: 15,
+                    fontWeight: '600',
+                  }}
+                />
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: showButton ? Colors.LIGHT_YELLOW : Colors.DEFAULT_YELLOW2,
+                width: '90%',
+                borderRadius: 15,
+                paddingVertical: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+              }}
+              onPress={deleteAccountUser}
+            >
+              <Text
+                style={{
+                  fontWeight: '600',
+                  fontSize: 16,
+                  color: Colors.DEFAULT_WHITE,
+                }}
+              >Submit</Text>
+            </TouchableOpacity>
+
+            <Separator height={22} />
+          </View>
+        </View>
+
+
+      </Modal>
+    )
+  }
+
   function renderTop() {
     return (
       <View
@@ -508,8 +686,18 @@ export default function ProfileScreen({ navigation }) {
             flexDirection: 'row',
             alignItems: 'center',
           }}
+          onPress={() => {
+            Alert.alert('Are you sure you want to delete account?', '', [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              { text: 'OK', onPress: () => setDeleteModal(true) },
+            ]);
+          }}
         >
-          <Ionicons name="md-fitness-outline" size={22} />
+          <Ionicons name="close-circle-outline" size={20} />
           <Text
             style={{
               flex: 1,
@@ -518,7 +706,7 @@ export default function ProfileScreen({ navigation }) {
               marginLeft: 15,
             }}
           >
-            Help Center
+            Delete Account
           </Text>
 
           <View
@@ -569,9 +757,11 @@ export default function ProfileScreen({ navigation }) {
   };
 
 
+
   return (
     <View style={styles.container} >
       {MessageAlert()}
+      {DeletionModal()}
       <Separator height={27} />
       {renderTop()}
       <ScrollView
@@ -583,7 +773,6 @@ export default function ProfileScreen({ navigation }) {
         {renderImage()}
         {renderMyOrdersButton()}
         {renderShippingAddress()}
-
         {renderMember()}
         {renderLanguage()}
         {helpCenter()}

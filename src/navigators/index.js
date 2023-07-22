@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SelectType } from '../screens';
 import {
     BuyerLogin, BuyerForgotPassword, BuyerForgotEmailSent,
-    BuyerCreateAccount, BuyerPhoneNumber, BuyerLocation, MainScreen,
+    BuyerCreateAccount, BuyerPhoneNumber, MainScreen,
     SeeAllRecommend, SeeTopProducts, CategoryScreen, CategoryPage, ProductDetails, BuyerDiscussion,
     BuyerShoppingBag, OrderSummary, ShippingAddress, BuyerEditLocation, BuyerUpdateAddress, SearchResult,
     ChatScreen, BuyerChat, ChatScreenMessage, EditProfile, PaypalPayment, PaypalReceipt, GCashPayment, BuyerCODSuccess,
@@ -22,9 +22,10 @@ import {
 
 
 import {
-    RiderLogin, RiderRegister, FaceRecognition, RiderPhoneAuth, RiderMainScreen, RiderUpdateDocs, RiderNotification,
-    RiderEditProfile, RiderPickOrder, RiderToVendor, RiderPickupOrder, DeliveryScan, DeliveryScanFailed, DeliveryClaimSuccess,
-    RiderDropOff, RiderConfirmDrop, DeliverySuccess,
+    RiderLogin, RiderRegister, 
+    // FaceRecognition, RiderPhoneAuth, RiderMainScreen, RiderUpdateDocs, RiderNotification,
+    // RiderEditProfile, RiderPickOrder, RiderToVendor, RiderPickupOrder, DeliveryScan, DeliveryScanFailed, DeliveryClaimSuccess,
+    // RiderDropOff, RiderConfirmDrop, DeliverySuccess,
 } from "../screens/RiderModule";
 
 const Stack = createStackNavigator();
@@ -42,7 +43,7 @@ export default function index() {
                 <Stack.Screen name="BuyerCreateAccount" component={BuyerCreateAccount} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="BuyerPhoneNumber" component={BuyerPhoneNumber} options={{ gestureEnabled: false }} />
                 {/* ---- */}
-                <Stack.Screen name="BuyerLocation" component={BuyerLocation} options={{ gestureEnabled: false }} />
+                {/* <Stack.Screen name="BuyerLocation" component={BuyerLocation} options={{ gestureEnabled: false }} /> */}
                 <Stack.Screen name="MainScreen" component={MainScreen} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="SeeAllRecommend" component={SeeAllRecommend} />
                 <Stack.Screen name="SeeTopProducts" component={SeeTopProducts} />
@@ -106,7 +107,7 @@ export default function index() {
                 {/* RIDER START */}
                 <Stack.Screen name="RiderLogin" component={RiderLogin} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="RiderRegister" component={RiderRegister} options={{ gestureEnabled: false }} />
-                <Stack.Screen name="RiderPhoneAuth" component={RiderPhoneAuth} options={{ gestureEnabled: false }} />
+                {/* <Stack.Screen name="RiderPhoneAuth" component={RiderPhoneAuth} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="FaceRecognition" component={FaceRecognition} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="RiderMainScreen" component={RiderMainScreen} options={{ gestureEnabled: false }} />
 
@@ -121,7 +122,7 @@ export default function index() {
                 <Stack.Screen name="DeliveryClaimSuccess" component={DeliveryClaimSuccess} />
                 <Stack.Screen name="RiderDropOff" component={RiderDropOff} />
                 <Stack.Screen name="RiderConfirmDrop" component={RiderConfirmDrop} />
-                <Stack.Screen name="DeliverySuccess" component={DeliverySuccess} />
+                <Stack.Screen name="DeliverySuccess" component={DeliverySuccess} /> */}
                 {/* RIDER END */}
 
 

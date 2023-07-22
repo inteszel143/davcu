@@ -137,9 +137,6 @@ export default function ShippingAddress({ navigation }) {
             </View>
         )
     };
-
-
-
     function renderContent() {
         return (
             <View
@@ -187,11 +184,11 @@ export default function ShippingAddress({ navigation }) {
                                     style={{
                                         marginRight: 10,
                                     }}
-                                    onPress={() => {
-                                        navigation.navigate('BuyerUpdateAddress', {
-                                            addressKey: item.key,
-                                        })
-                                    }}
+                                    // onPress={() => {
+                                    //     navigation.navigate('BuyerUpdateAddress', {
+                                    //         addressKey: item.key,
+                                    //     })
+                                    // }}
                                 >
                                     <Text
                                         style={{
@@ -280,7 +277,7 @@ export default function ShippingAddress({ navigation }) {
                         borderColor: Colors.LIGHT_GREY2,
                         backgroundColor: Colors.DEFAULT_WHITE,
                     }}
-                    onPress={() => navigation.navigate('BuyerEditLocation')}
+                    // onPress={() => navigation.navigate('BuyerEditLocation')}
                 >
                     <AntDesign name='pluscircleo' size={16} />
                     <Text

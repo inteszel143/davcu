@@ -32,6 +32,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "e.intes.472614@umindanao.edu.ph",
+        "ascAppId": "6451493793",
+        "appleTeamId": "VWKXXPK5W8"
+      }
+    }
   }
 }

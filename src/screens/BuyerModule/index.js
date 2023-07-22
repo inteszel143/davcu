@@ -3,7 +3,7 @@ import BuyerForgotPassword from "./BuyerForgotPassword";
 import BuyerForgotEmailSent from "./BuyerForgotEmailSent";
 import BuyerCreateAccount from "./BuyerCreateAccount";
 import BuyerPhoneNumber from "./BuyerPhoneNumber";
-import BuyerLocation from "./BuyerLocation";
+// import BuyerLocation from "./BuyerLocation";
 import MainScreen from "./MainScreen";
 import SeeAllRecommend from "./SeeAllRecommend";
 import SeeTopProducts from "./SeeTopProducts";
@@ -47,7 +47,7 @@ export {
     BuyerForgotEmailSent,
     BuyerCreateAccount,
     BuyerPhoneNumber,
-    BuyerLocation,
+    // BuyerLocation,
     MainScreen,
     SeeAllRecommend,
     SeeTopProducts,

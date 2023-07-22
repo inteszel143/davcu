@@ -7,8 +7,6 @@ import { MaterialCommunityIcons, AntDesign, Ionicons, Entypo } from 'react-nativ
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import * as ImagePicker from 'expo-image-picker';
 
-import MapView, { PROVIDER_GOOGLE, Marker, Callout, Circle, Overlay } from 'react-native-maps';
-import * as Location from 'expo-location';
 import RBSheet from "react-native-raw-bottom-sheet";
 import { firebase } from '../../../config';
 

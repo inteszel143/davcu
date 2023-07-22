@@ -4,8 +4,7 @@ import { Colors, Display, Separator, Status, Barangay } from '../../constants'
 import { MaterialCommunityIcons, Ionicons, Feather, AntDesign } from 'react-native-vector-icons';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { firebase } from '../../../config';
-import MapView, { PROVIDER_GOOGLE, Marker, Callout, Circle, Overlay } from 'react-native-maps';
-import * as Location from 'expo-location';
+
 import { SelectList } from 'react-native-dropdown-select-list'
 
 const marker = require('../../../assets/images/marker3.png');
@@ -24,54 +23,6 @@ export default function BuyerAddLocation({ navigation }) {
     const [showButton, setShowButton] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
-    // TOOLS
-    const [Latitude, setLatitude] = useState(0);
-    const [Longitude, setLongitude] = useState(0);
-    const [loading, setLoading] = React.useState(true);
-    const [errorMsg, setErrorMsg] = useState(null);
-
-    // LOCATION
-    const [location, setLocation] = useState(null);
-    const [userLocation, setUserLocation] = useState(null);
-
-    // HANDLE ERROR
-    useEffect(() => {
-        const isDisabled = !street || !selected;
-        setShowButton(isDisabled);
-    }, [street, selected]);
-
-
-    // CURRENT LOCATION
-    useEffect(() => {
-        (async () => {
-
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
-
-            let location = await Location.getCurrentPositionAsync({});
-            setUserLocation({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: 0.0012,
-                longitudeDelta: 0.0012,
-            });
-            setLatitude(location.coords.latitude);
-            setLongitude(location.coords.longitude);
-            setLoading(false)
-        })();
-    }, []);
-
-    let text = 'Waiting..';
-    if (errorMsg) {
-        text = errorMsg;
-    } else if (location) {
-        text = JSON.stringify(location);
-    };
-
-    // GET BUYER DATA
     useEffect(() => {
         firebase.firestore()
             .collection('users')
@@ -93,8 +44,8 @@ export default function BuyerAddLocation({ navigation }) {
         await firebase.firestore()
             .collection('buyerAddress')
             .add({
-                latitude: Latitude,
-                longitude: Longitude,
+                latitude: 7.066973,
+                longitude: 125.59549,
                 buyerId: firebase.auth().currentUser.uid,
                 barangay: selected,
                 fullName: fullName,
@@ -305,129 +256,6 @@ export default function BuyerAddLocation({ navigation }) {
         )
     }
 
-    function renderCurrent() {
-        return (
-            <View>
-
-
-                <View
-                    style={{
-                        marginTop: 40,
-                        paddingHorizontal: 25,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text
-                        style={{
-                            fontFamily: 'PoppinsMedium',
-                            fontSize: RFPercentage(2),
-                            color: Colors.DARK_SIX,
-                            marginRight: 5,
-                        }}
-                    >
-                        Current Location
-                    </Text>
-                    <MaterialCommunityIcons name="navigation-variant-outline" size={18} />
-                </View>
-
-
-                <Separator height={10} />
-                <View
-                    style={{
-                        paddingVertical: 10,
-                        paddingHorizontal: 20,
-                        backgroundColor: Colors.DEFAULT_WHITE,
-                        flexDirection: 'row',
-                        borderTopRightRadius: 5,
-                        borderTopLeftRadius: 5,
-                    }}
-                >
-                    <View
-                        style={{
-                            backgroundColor: Colors.DEFAULT_YELLOW2,
-                            height: 20,
-                            width: 20,
-                            borderRadius: 10,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <MaterialCommunityIcons name='bell-ring' size={15} color={Colors.DEFAULT_WHITE} />
-                    </View>
-
-                    <View
-                        style={{
-                            marginLeft: 8,
-                            paddingHorizontal: 10,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                fontFamily: 'PoppinsMedium',
-                                fontSize: RFPercentage(1.9),
-                                color: Colors.DEFAULT_YELLOW2,
-                            }}
-                        >
-                            Place an accurate pin
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: RFPercentage(1.6),
-                                textAlign: 'justify',
-                                fontFamily: 'PoppinsRegular',
-                                color: Colors.DARK_SIX,
-                            }}
-                        >
-                            To change the location of the pin, simply hold the marker for 3 seconds and drag into the desired location.
-                        </Text>
-                    </View>
-                </View>
-
-                <Separator height={10} />
-
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    {userLocation ? (
-                        <MapView
-                            mapType="standard"
-                            style={styles.map}
-                            initialRegion={userLocation}
-                        // showsUserLocation={true}
-                        >
-                            {/* USERLOCATION  */}
-                            <Marker
-                                coordinate={userLocation}
-                                draggable={true}
-                                onDragEnd={(e) => {
-                                    setLatitude(e.nativeEvent.coordinate.latitude)
-                                    setLongitude(e.nativeEvent.coordinate.longitude)
-                                }}
-                            >
-                                <Image
-                                    source={marker}
-                                    resizeMode='contain'
-                                    style={{
-                                        width: Display.setWidth(10),
-                                        height: Display.setHeight(10),
-                                    }}
-                                />
-                            </Marker>
-
-                        </MapView>
-                    ) : (
-                        <Text>Loading...</Text>
-                    )}
-                </View>
-            </View>
-        )
-    };
-
-
     function renderButton() {
         return (
             <View
@@ -472,7 +300,6 @@ export default function BuyerAddLocation({ navigation }) {
                 {renderTopUsa()}
                 {selectBarangay()}
                 {renderDataField()}
-                {renderCurrent()}
                 {renderButton()}
             </ScrollView>
         </View>

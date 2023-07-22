@@ -7,8 +7,6 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import * as Linking from 'expo-linking';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 2.2;
-import * as Location from 'expo-location';
-import MapView, { PROVIDER_GOOGLE, Marker, Callout, Circle, Overlay } from 'react-native-maps';
 import ShopRecommend from './BuyerConstant/ShopRecommend';
 import ShoTopProduct from './BuyerConstant/ShoTopProduct';
 import ShopArrival from './BuyerConstant/ShopArrival';
@@ -30,17 +28,7 @@ export default function VisitShop({ navigation, route }) {
     const [newArrival, setNewArrival] = useState(false)
 
     const [loading, setLoading] = useState(true)
-    const [sellerLatitude, setSellerLatitude] = useState(null);
-    const [sellerLongitude, setSellerLongitude] = useState(null);
-    const [userLocation, setUserLocation] = useState(null);
-
-
-    //LINKING
-    const [storeLat, setStoreLat] = useState(null);
-    const [storeLong, setStoreLong] = useState(null);
-
-    const [riderLat, setRiderLat] = useState(null);
-    const [riderLong, setRiderLong] = useState(null);
+  
 
     // ALL DATA
     useEffect(() => {
@@ -80,50 +68,7 @@ export default function VisitShop({ navigation, route }) {
         return () => { isMounted = false; };
     }, []);
 
-    useEffect(() => {
-        (async () => {
-            // Request permission to access the user's location
-            const { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                console.log('Permission to access location was denied');
-                return;
-            }
 
-            // Get the user's current location
-            const location = await Location.getCurrentPositionAsync({});
-            const { latitude, longitude } = location.coords;
-            setRiderLat(latitude);
-            setRiderLong(longitude);
-
-        })();
-    }, []);
-
-    // SELLERS
-    useEffect(() => {
-        let isMounted = true;
-        firebase.firestore()
-            .collection('sellers')
-            .get()
-            .then(querySnapshot => {
-                querySnapshot.forEach(documentSnapshot => {
-                    if (documentSnapshot.id === sellerId) {
-                        setSellerLatitude(documentSnapshot.data().Latitude);
-                        setSellerLongitude(documentSnapshot.data().Longitude);
-                        setStoreLat(documentSnapshot.data().Latitude);
-                        setStoreLong(documentSnapshot.data().Longitude);
-
-                        setUserLocation({
-                            latitude: documentSnapshot.data().Latitude,
-                            longitude: documentSnapshot.data().Longitude,
-                            latitudeDelta: 0.0012,
-                            longitudeDelta: 0.0012,
-                        });
-
-                    }
-                });
-            });
-        return () => { isMounted = false; };
-    }, []);
 
     // TOTAL PRODUCT
     useEffect(() => {
@@ -152,15 +97,15 @@ export default function VisitShop({ navigation, route }) {
     };
 
 
-    const destinationLatitude = storeLat;
-    const destinationLongitude = storeLong;
-    const userLatitude = riderLat;
-    const userLongitude = riderLong;
+    // const destinationLatitude = storeLat;
+    // const destinationLongitude = storeLong;
+    // const userLatitude = riderLat;
+    // const userLongitude = riderLong;
 
-    const handleOpenMaps = () => {
-        const url = `https://www.google.com/maps/dir/?api=1&destination=${destinationLatitude},${destinationLongitude}&origin=${userLatitude},${userLongitude}`;
-        Linking.openURL(url); fetchBundle
-    }
+    // const handleOpenMaps = () => {
+    //     const url = `https://www.google.com/maps/dir/?api=1&destination=${destinationLatitude},${destinationLongitude}&origin=${userLatitude},${userLongitude}`;
+    //     Linking.openURL(url); fetchBundle
+    // }
 
 
 
@@ -334,103 +279,6 @@ export default function VisitShop({ navigation, route }) {
     };
 
 
-    function renderLocation() {
-        return (
-            <View
-                style={{
-                    backgroundColor: Colors.DEFAULT_WHITE,
-                    paddingHorizontal: 8,
-                    paddingVertical: 5,
-                    // marginHorizontal: 5,
-                    borderRadius: 8,
-                    // marginBottom: 8,
-                }}
-            >
-                <View
-                    style={{
-                        paddingVertical: 5,
-                        paddingHorizontal: 10,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    <Text
-                        style={{
-                            fontFamily: 'PoppinsSemiBold',
-                            fontSize: RFPercentage(1.9),
-                            color: Colors.DARK_SIX,
-                        }}
-                    >
-                        Shop location
-                    </Text>
-
-                    <TouchableOpacity
-                        style={{
-                            flexDirection: 'row',
-                        }}
-                        onPress={handleOpenMaps}
-                    // onPress={() => {
-                    //     navigation.navigate('BuyerStoreLocation', {
-                    //         sellerUid: sellerUid,
-                    //     });
-                    // }}
-                    >
-                        <Ionicons name="navigate-outline" size={14} />
-                        <Text
-                            style={{
-                                fontFamily: "PoppinsSemiBold",
-                                fontSize: RFPercentage(1.8),
-                                marginLeft: 5,
-
-                            }}
-                        >Get Direction</Text>
-                    </TouchableOpacity>
-
-
-                </View>
-
-                <Separator height={5} />
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    {userLocation ? (
-                        <MapView
-                            mapType="standard"
-                            style={styles.map}
-                            initialRegion={userLocation}
-                        // showsUserLocation={true}
-                        >
-                            {/* USERLOCATION  */}
-                            <Marker
-                                coordinate={userLocation}
-                            >
-                                <Image
-                                    source={marker}
-                                    resizeMode='contain'
-                                    style={{
-                                        width: Display.setWidth(8),
-                                        height: Display.setHeight(8),
-                                    }}
-                                />
-                            </Marker>
-
-                        </MapView>
-                    ) : (
-                        <Text>Loading...</Text>
-                    )}
-                </View>
-
-                <Separator height={5} />
-
-            </View>
-        )
-    };
-
-
     function renderContent() {
         return (
             <View
@@ -544,7 +392,6 @@ export default function VisitShop({ navigation, route }) {
             {renderTop()}
             {renderStoreName()}
             <ScrollView>
-                {renderLocation()}
                 {renderContent()}
                 {renderProducts()}
             </ScrollView>
@@ -559,10 +406,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
     },
-    map: {
-        width: Display.setWidth(92),
-        height: Display.setHeight(18),
-        borderWidth: 0.6,
-        borderColor: Colors.LIGHT_GREY2,
-    },
+
 })

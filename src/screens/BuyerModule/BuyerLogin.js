@@ -55,11 +55,11 @@ export default function BuyerLogin({ navigation }) {
         setShowButton(isDisabled);
     }, [email, password]);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setModalVisible(true); //
-        }, 1000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setModalVisible(true); //
+    //     }, 1000);
+    // }, []);
 
 
     React.useEffect(() => {
@@ -217,7 +217,7 @@ export default function BuyerLogin({ navigation }) {
 
                 {MessageAlert()}
 
-                <Separator height={65} />
+                <Separator height={80} />
                 {/* IMAGE */}
                 <View
                     style={{
@@ -409,7 +409,7 @@ export default function BuyerLogin({ navigation }) {
                 </TouchableOpacity>
 
 
-                <View
+                {/* <View
                     style={{
                         marginTop: 20,
                         alignItems: 'center',
@@ -422,100 +422,10 @@ export default function BuyerLogin({ navigation }) {
                             color: Colors.INACTIVE_GREY,
                         }}
                     >Or sign in with</Text>
-                </View>
+                </View> */}
 
 
                 {/* OTHER BUTTON */}
-
-                <View
-                    style={{
-                        marginTop: 25,
-                        alignItems: 'center',
-                    }}
-                >
-
-                    <TouchableOpacity
-                        style={{
-                            width: Display.setWidth(88),
-                            height: Display.setHeight(6),
-                            alignSelf: 'center',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderWidth: 0.5,
-                            borderColor: Colors.INACTIVE_GREY,
-                            borderRadius: 20,
-                        }}
-
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Image
-                                source={require('../../../assets/Icon/facebook.png')}
-                                resizeMode='contain'
-                                style={{
-                                    width: 16,
-                                    height: 16,
-                                }}
-                            />
-                            <Text
-                                style={{
-                                    fontFamily: 'PoppinsMedium',
-                                    fontSize: RFPercentage(2),
-                                    marginLeft: 10,
-                                }}
-                            >
-                                Continue with Facebook
-                            </Text>
-
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={{
-                            marginTop: 25,
-                            width: Display.setWidth(88),
-                            height: Display.setHeight(6),
-                            alignSelf: 'center',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderWidth: 0.5,
-                            borderColor: Colors.INACTIVE_GREY,
-                            borderRadius: 20,
-                        }}
-
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Image
-                                source={require('../../../assets/Icon/google.png')}
-                                resizeMode='contain'
-                                style={{
-                                    width: 16,
-                                    height: 16,
-                                }}
-                            />
-                            <Text
-                                style={{
-                                    fontFamily: 'PoppinsMedium',
-                                    fontSize: RFPercentage(2),
-                                    marginLeft: 10,
-                                }}
-                            >
-                                Continue with Google
-                            </Text>
-
-                        </View>
-                    </TouchableOpacity>
-
-                </View>
 
                 <Separator height={40} />
                 {/* DONT HAVE AN ACCOUNT */}

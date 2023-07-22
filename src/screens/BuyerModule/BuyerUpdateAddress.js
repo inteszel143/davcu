@@ -4,10 +4,10 @@ import { Colors, Separator, Status, Display, Barangay } from '../../constants'
 import { firebase } from '../../../config';
 import { MaterialCommunityIcons, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import * as Location from 'expo-location';
+
 import { SelectList } from 'react-native-dropdown-select-list'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import MapView, { PROVIDER_GOOGLE, Marker, Callout, Circle, Overlay } from 'react-native-maps';
+
 import Messaging from './BuyerConstant/Messaging';
 import ShoppingCart from './BuyerConstant/ShoppingCart';
 
@@ -66,8 +66,6 @@ export default function BuyerUpdateAddress({ navigation, route }) {
                     setStreet(documentSnapshot.data().addressInfo);
                     setSelected(documentSnapshot.data().barangay);
                     setIsEnabled(documentSnapshot.data().default);
-                    setLatitude(documentSnapshot.data().latitude);
-                    setLongitude(documentSnapshot.data().longitude);
                 }
             });
     }, []);
@@ -94,8 +92,8 @@ export default function BuyerUpdateAddress({ navigation, route }) {
                 .collection('buyerAddress')
                 .doc(addressKey)
                 .update({
-                    latitude: Latitude,
-                    longitude: Longitude,
+                    latitude: 7.066973,
+                    longitude: 125.59549,
                     buyerId: buyerID,
                     barangay: selected,
                     fullName: fullName,
@@ -122,8 +120,8 @@ export default function BuyerUpdateAddress({ navigation, route }) {
                 .collection('buyerAddress')
                 .doc(addressKey)
                 .update({
-                    latitude: Latitude,
-                    longitude: Longitude,
+                    latitude: 7.066973,
+                    longitude: 125.59549,
                     buyerId: buyerID,
                     barangay: selected,
                     fullName: fullName,
@@ -137,38 +135,6 @@ export default function BuyerUpdateAddress({ navigation, route }) {
                     navigation.navigate('ShippingAddress');
                 });
         }
-    };
-
-
-    useEffect(() => {
-        (async () => {
-
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
-
-            let location = await Location.getCurrentPositionAsync({});
-            setUserLocation({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: 0.0012,
-                longitudeDelta: 0.0012,
-            });
-            setLatitude(location.coords.latitude);
-            setLongitude(location.coords.longitude);
-            setLoading(false);
-        })();
-    }, []);
-
-
-
-    let text = 'Waiting..';
-    if (errorMsg) {
-        text = errorMsg;
-    } else if (location) {
-        text = JSON.stringify(location);
     };
 
 
@@ -754,46 +720,6 @@ export default function BuyerUpdateAddress({ navigation, route }) {
                     </View>
                 </View>
 
-                <Separator height={10} />
-
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    {userLocation ? (
-                        <MapView
-                            mapType="standard"
-                            style={styles.map}
-                            initialRegion={userLocation}
-                        // showsUserLocation={true}
-                        >
-                            {/* USERLOCATION  */}
-                            <Marker
-                                coordinate={userLocation}
-                                draggable={true}
-                                onDragEnd={(e) => {
-                                    setLatitude(e.nativeEvent.coordinate.latitude)
-                                    setLongitude(e.nativeEvent.coordinate.longitude)
-                                }}
-                            >
-                                <Image
-                                    source={marker}
-                                    resizeMode='contain'
-                                    style={{
-                                        width: Display.setWidth(10),
-                                        height: Display.setHeight(10),
-                                    }}
-                                />
-                            </Marker>
-
-                        </MapView>
-                    ) : (
-                        <Text>Loading...</Text>
-                    )}
-                </View>
-
             </View>
         )
     };
@@ -889,12 +815,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.DEFAULT_BG,
-    },
-    map: {
-        width: Display.setWidth(91),
-        height: Display.setHeight(25),
-        borderWidth: 0.6,
-        borderColor: Colors.LIGHT_GREY2,
     },
     centeredView: {
         flex: 1,

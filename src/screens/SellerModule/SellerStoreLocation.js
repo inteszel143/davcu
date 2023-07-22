@@ -6,27 +6,21 @@ import {
 import { MaterialCommunityIcons, AntDesign, Ionicons, Entypo } from 'react-native-vector-icons';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { SelectList } from 'react-native-dropdown-select-list'
-import MapView, { PROVIDER_GOOGLE, Marker, Callout, Circle, Overlay } from 'react-native-maps';
-import * as Location from 'expo-location';
+
 import { firebase } from '../../../config';
 
-const marker = require('../../../assets/images/marker3.png');
+
 
 const { width, height } = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
-const LATITUDE_DELTA = 0.0012;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+
 
 export default function SellerStoreLocation({ navigation }) {
     // TOOLS
     const [modalVisible, setModalVisible] = useState(false);
     const [showButton, setShowButton] = useState(true);
 
-    const [Latitude, setLatitude] = useState(0);
-    const [Longitude, setLongitude] = useState(0);
-    const [location, setLocation] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
-    const [userLocation, setUserLocation] = useState(null);
+
 
     const [street, setStreet] = useState('');
     const [selected, setSelected] = React.useState("");
@@ -37,37 +31,6 @@ export default function SellerStoreLocation({ navigation }) {
     }, [street, selected]);
 
 
-    useEffect(() => {
-        (async () => {
-
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
-
-            let location = await Location.getCurrentPositionAsync({});
-            setUserLocation({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: 0.0012,
-                longitudeDelta: 0.0012,
-            });
-            setLatitude(location.coords.latitude);
-            setLongitude(location.coords.longitude);
-        })();
-    }, []);
-
-
-    let text = 'Waiting..';
-    if (errorMsg) {
-        text = errorMsg;
-    } else if (location) {
-        text = JSON.stringify(location);
-    };
-
-
-
     const handleUpdateSeller = async () => {
         setModalVisible(true);
         const storeLocation = street + ' ' + selected + ' ' + 'Davao City ' + 'Davao Del Sur ' + 'Mindanao';
@@ -76,8 +39,8 @@ export default function SellerStoreLocation({ navigation }) {
                 .collection('sellers')
                 .doc(firebase.auth().currentUser.uid)
                 .update({
-                    Latitude: Latitude,
-                    Longitude: Longitude,
+                    Latitude: 7.066973,
+                    Longitude: 125.59549,
                     storeLocation: storeLocation,
                 })
                 .then(() => {
@@ -299,66 +262,7 @@ export default function SellerStoreLocation({ navigation }) {
 
 
 
-    function shopInfo() {
-        return (
-            <View>
-                <Separator height={10} />
-                {/* TEXTINPUT */}
-
-                <View
-                    style={{
-                        // justifyContent: 'center',
-                        // alignItems: 'center',
-                        paddingHorizontal: 20,
-                    }}
-                >
-                    <Text
-                        style={{
-                            fontFamily: 'PoppinsSemiBold',
-                            fontSize: RFPercentage(2),
-                        }}
-                    >Your current location</Text>
-
-                </View>
-
-                <Separator height={10} />
-                <View
-                    style={{
-                        alignSelf: 'center',
-                    }}
-                >
-
-                    {userLocation ? (
-                        <MapView
-                            mapType="standard"
-                            style={styles.map}
-                            initialRegion={userLocation}
-                        // showsUserLocation={true}
-                        >
-                            {/* USERLOCATION  */}
-                            <Marker
-                                coordinate={userLocation}
-                            >
-                                <Image
-                                    source={marker}
-                                    resizeMode='contain'
-                                    style={{
-                                        width: Display.setWidth(10),
-                                        height: Display.setHeight(10),
-                                    }}
-                                />
-                            </Marker>
-
-                        </MapView>
-                    ) : (
-                        <Text>Loading...</Text>
-                    )}
-                </View>
-
-
-            </View>
-        )
-    };
+    
 
 
     function renderButton() {
@@ -403,10 +307,9 @@ export default function SellerStoreLocation({ navigation }) {
             <ScrollView
                 showsVerticalScrollIndicator={false}
             >
-                <Separator height={60} />
+                <Separator height={80} />
                 {renderContentTop()}
                 {renderAddress()}
-                {shopInfo()}
                 {renderButton()}
                 <Separator height={27} />
             </ScrollView>
@@ -418,13 +321,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.DEFAULT_WHITE,
-    },
-    map: {
-        width: Display.setWidth(89),
-        height: Display.setHeight(30),
-        borderRadius: 20,
-        borderWidth: 0.6,
-        borderColor: Colors.LIGHT_GREY2,
     },
     centeredView: {
         flex: 1,

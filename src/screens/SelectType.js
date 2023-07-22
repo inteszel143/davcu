@@ -49,12 +49,8 @@ export default function SelectType({ navigation }) {
                         backgroundColor: Colors.DEFAULT_WHITE,
                         borderRadius: 10,
                         marginHorizontal: 15,
-
-                        shadowColor: Colors.DARK_ONE,
-                        shadowOpacity: 0.30,
-                        shadowRadius: 2.62,
-                        elevation: 4,
-
+                        borderWidth: 0.5,
+                        borderColor: Colors.LIGHT_GREY2,
                         justifyContent: 'center',
                         alignItems: 'center',
                         paddingVertical: 20,
@@ -123,10 +119,8 @@ export default function SelectType({ navigation }) {
                         borderRadius: 12,
                         marginHorizontal: 15,
 
-                        shadowColor: Colors.DARK_ONE,
-                        shadowOpacity: 0.30,
-                        shadowRadius: 2.62,
-                        elevation: 4,
+                        borderWidth: 0.5,
+                        borderColor: Colors.LIGHT_GREY2,
 
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -195,10 +189,8 @@ export default function SelectType({ navigation }) {
                         borderRadius: 10,
                         marginHorizontal: 12,
 
-                        shadowColor: Colors.DARK_ONE,
-                        shadowOpacity: 0.30,
-                        shadowRadius: 2.62,
-                        elevation: 4,
+                        borderWidth: 0.5,
+                        borderColor: Colors.LIGHT_GREY2,
 
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -254,21 +246,19 @@ export default function SelectType({ navigation }) {
         )
     };
 
-
-
     return (
         <SafeAreaView eAreaView style={styles.container} >
             <Status />
-            <Separator height={30} />
+            <Separator height={20} />
 
-            <View
+            {/* <View
                 style={{
                     marginTop: 15,
                     paddingHorizontal: 20,
                 }}
             >
                 <MaterialCommunityIcons name="close" size={22} />
-            </View>
+            </View> */}
 
             <View
                 style={{
